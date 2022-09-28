@@ -32,6 +32,11 @@ pipeline {
        steps {
          sh '/var/lib/jenkins/.local/bin/eb deploy {{url-shortener_main}}'
       }
+       
+       stage ('Alert') {
+         steps { 
+          emailext (attachLog: true, body: 'URL-Shortener Application Build/Test Status Update', subject: 'URL-Shortener Application Status Update', to: 'sammydcespedes1@gmail.com')
+      }
     }
   }     
 } 
