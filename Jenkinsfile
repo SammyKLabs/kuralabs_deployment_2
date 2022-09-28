@@ -20,6 +20,9 @@ pipeline {
         py.test --verbose --junit-xml test-reports/results.xml
         ''' 
       }
+     stage ('Email Notification') {
+        emailext attachLog: true, body: 'Hello this is a Build Status Update for URL Shortener Application ', presendScript: ' ', subject: 'URL Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
+      }
     
       post{
         always {
@@ -32,9 +35,6 @@ pipeline {
        steps {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortener-dev'
       } 
-       stage ('Email Notification'){
-         emailext attachLog: true, body: 'Hello this is a Build Status Update for URL Shortener Application ', presendScript: ' ', subject: 'URL Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
-       }
     }
   }     
 } 
