@@ -22,10 +22,8 @@ pipeline {
       }
     
       post{
-        success{
-          emailext attachLog: true, body: 'URL-Shortener Application Build/Test Status Update', subject: 'URL-Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
-            always {
-               junit 'test-reports/results.xml'
+        always {
+          junit 'test-reports/results.xml'
         }
        
       }
