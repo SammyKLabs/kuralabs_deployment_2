@@ -33,7 +33,8 @@ pipeline {
      stage ('Deploy') {
        steps {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortener-dev'
-       } catch (err) {
+       } 
+       catch (err) {
            emailext attachLog: true, body: 'URL-Shortener Application Build/Test Status Update', subject: 'URL-Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
        }
     }
