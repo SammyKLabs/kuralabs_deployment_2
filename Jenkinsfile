@@ -22,8 +22,10 @@ pipeline {
       }
     
       post{
-        always {
-          junit 'test-reports/results.xml'
+        success{
+          emailext attachLog: true, body: 'URL-Shortener Application Build/Test Status Update', subject: 'URL-Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
+            always {
+               junit 'test-reports/results.xml'
         }
        
       }
@@ -31,7 +33,6 @@ pipeline {
      stage ('Deploy') {
        steps {
          sh '/var/lib/jenkins/.local/bin/eb deploy url-shortener-dev'
-         emailext attachLog: true, body: 'URL-Shortener Application Build/Test Status Update', subject: 'URL-Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
       }
     }
   }     
