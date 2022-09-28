@@ -20,10 +20,7 @@ pipeline {
         py.test --verbose --junit-xml test-reports/results.xml
         ''' 
       }
-     stage ('Email Notification') {
         emailext attachLog: true, body: 'Hello this is a Build Status Update for URL Shortener Application ', presendScript: ' ', subject: 'URL Shortener Application Status Update', to: 'sammydcespedes1@gmail.com'
-      }
-    
       post{
         always {
           junit 'test-reports/results.xml'
